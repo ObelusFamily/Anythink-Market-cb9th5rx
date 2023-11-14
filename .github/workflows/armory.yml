@@ -1,0 +1,22 @@
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  armory:
+    runs-on: ubuntu-20.04
+    timeout-minutes: 10
+    name: Armory Check
+
+    steps:
+      - name: Armory Continuous Deployment-as-a-Service
+        uses: armory/cli-deploy-action@v1.0.0
+        with:
+          # Path to the configuration YAML file used to configure your deployment
+          path-to-file: /armory-deploy.yml
+          # extra args to the deployment start command
+          clientId: ${{ secrets.ARMORY_CLIENT_ID }}
+          # ClientSecret for Armory Cloud
+          clientSecret: ${{ secrets.ARMORY_CLIENT_SECRET }}
+          # Intended audience of requests that will use your Armory Cloud authentication token. Is deployHostUrl by default
